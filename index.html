@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Веб-приложение Telegram бота</title>
+    <!-- Подключение библиотеки flatpickr для timepicker'а -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+<h1>Выберите время:</h1>
+<input type="text" id="timepicker" placeholder="Выберите время">
+
+<!-- Кнопка для отправки выбранного времени -->
+<button onclick="sendTimeToBot()">Отправить время</button>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    // Создание timepicker'а
+    flatpickr('#timepicker', {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: 'H:i',
+    });
+
+    // Функция для отправки выбранного времени обратно боту
+    function sendTimeToBot() {
+        const selectedTime = document.getElementById('timepicker').value;
+        const botUsername = 'nikkkkii_bot'; // Имя вашего бота без собачки (@)
+        const message = `Выбранное время: ${selectedTime}`;
+
+        // Отправка сообщения обратно боту через API
+        fetch(`https://api.telegram.org/6545548439:AAGzoqXEPID3A_sAr_UkPJRv0KwCVviLbKs/sendMessage?chat_id=@${botUsername}&text=${message}`)
+            .then((response) => {
+                // Можно добавить обработку успешной отправки, если необходимо
+            })
+            .catch((error) => {
+                console.error('Ошибка при отправке сообщения:', error);
+            });
+    }
+</script>
+</body>
+</html>
